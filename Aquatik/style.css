@@ -1,0 +1,364 @@
+/*Variables*/
+/*You can change colors and background images here easily*/
+:root {
+--background-color: #FBFBFB;
+--font-color: #271F1F;
+--header-font-color: #D1126B;
+--waves-color: #6FCEB1;
+--waves-color2: #5DBCD8;
+--big-text-font-color: #DA1D75;
+--accent-color1: #DA1D75;
+--accent-color2: #3C987C;
+}
+
+/*Fonts*/
+@font-face {
+font-family: "header";
+src: url("fonts/header.woff2") format('woff2'), url("fonts/header.woff") format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family: "body";
+src: url("fonts/body.woff2") format('woff2'), url("fonts/body.woff") format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family: "emoji";
+src: url('fonts/emoji.ttf') format('ttf');
+font-weight: normal;
+font-style: normal;
+}
+
+/*Website animations*/
+@keyframes fade {from{opacity:0;}to{ opacity:1;}}
+@keyframes seawaves {0% {transform: translate3d(-90px,0,0);} 100% {transform: translate3d(85px,0,0);}}
+
+
+/*HTML styling*/
+* {
+box-sizing: border-box;
+}
+
+html {
+overflow-x: hidden;
+overflow-y: scroll;
+scroll-behavior: smooth;
+scrollbar-color: var(--accent-color1) var(--accent-color2);
+}
+
+::-webkit-scrollbar {
+width: 3px;
+height: 3px;
+}
+
+::-webkit-scrollbar-button {
+width: 0px;
+height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+background: var(--accent-color1);
+border: 0px none transparent;
+border-radius: 0px;
+}
+
+::-webkit-scrollbar-track {
+background: var(--accent-color2);
+border: 0px none transparent;
+border-radius: 0px;
+}
+
+::-webkit-scrollbar-corner {
+background: transparent;
+}
+
+::selection {
+background: var(--accent-color2);
+}
+
+/* Style the body */
+body {
+opacity: 0;
+animation: fade ease-in 1;
+animation-fill-mode: forwards;
+animation-duration: 0.6s;
+margin: 0;
+padding: 0;
+font-size: 17pt;
+font-family: "body";
+color: var(--font-color);
+background-color: var(--background-color);
+}
+
+p {text-align: center;}
+
+a {text-decoration: none;}
+
+/* Header/logo Title */
+header {
+padding-top: 2em;
+padding-bottom: 2em;
+height: 15%;
+text-align: center;
+background: var(--waves-color);
+background-image: linear-gradient(var(--waves-color2), var(--waves-color)) ;
+background-size:cover;
+color: var(--header-font-color);
+}
+
+/*Header text*/
+header h1 {
+font-size: 1.6em;
+font-family: "header";
+padding:5px;
+margin-top:-3px;
+text-shadow: 2px 2px 0px rgba(255,255,255,0.90), 4px 4px 0px var(--header-font-color);
+}
+
+/*Wavy header border*/
+.waves {
+position:relative;
+width: 100%;
+height:5vh;
+margin-bottom:-7px;
+min-height:40px;
+max-height:40px;
+}
+
+.waves:nth-child(1) {
+transform: none;
+}
+.parallax > use {
+animation: seawaves 50s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+opacity: 80%;
+animation-delay: -3s;
+animation-duration: 8s;
+}
+.parallax > use:nth-child(2) {
+opacity: 60%;
+animation-delay: -3s;
+animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+opacity: 40%;
+animation-delay: -4s;
+animation-duration: 13s;
+}
+
+svg {
+stroke: none;
+fill: var(--waves-color);
+height: 100%; 
+width: 100%;
+}
+
+/*Sections*/
+.row {
+display: flex;
+flex-wrap: wrap;
+align-content: center;
+text-shadow: 1px 1px 0px rgba(0,0,0,0.30);
+}
+
+.side {
+flex: 24%;
+padding: 5px;
+text-align: center;
+overflow: none;
+}
+
+.main {
+flex: 74%;
+padding: 20px;
+}
+
+/*Pictures*/
+.sidepics {
+transition: 0.1s ease-in-out;
+width: 5em;
+height: 5em;
+display: inline;
+margin: 1em;
+box-shadow: -40px -40px 0 -30px var(--accent-color1), 40px 40px 0 -30px var(--accent-color2);
+}
+
+.sidepics:hover {
+cursor: pointer;
+transform: scale(1.20);
+box-shadow: none;
+}
+
+/*Gallery*/
+.short-animate{transition:.5s ease-in-out;}
+
+.gallery-popup{
+position:fixed;
+top:-100%;
+bottom:100%;
+left:0;
+right:0;
+background:rgba(0,0,0,.8);
+z-index:501;
+opacity:0;
+}
+
+.gallery-popup img{
+position:absolute;
+margin:auto;
+top:0;
+left:0;
+right:0;
+bottom:0;
+max-width:0;
+max-height:0;}
+
+#gallery-popup-controls{
+position:fixed;
+height:70px;
+width:70px;
+top:70px;
+right:0;
+z-index:23;
+background:rgba(255,255,255,.1);}
+
+#close-gallery-popup{
+display:block;
+position:absolute;
+overflow:hidden;
+height:50px;
+width:50px;
+right:10px;
+top:10px;
+font-size: 30pt;
+text-decoration: none;
+}
+
+#close-gallery-popup:before {
+content:"↵";
+color: var(--big-text-font-color);
+}
+
+.gallery-popup:target{top:0;bottom:0;opacity:1;}
+.gallery-popup:target img{max-width:90%;max-height:90%;}
+.gallery-popup:target ~ #gallery-popup-controls{top:0;}
+
+/*Big text*/
+.bigtext {
+font-size: 1.8em;
+margin-top:25px;
+
+padding: 20px;
+display:block;
+font-family: "header";
+font-weight: normal;
+font-style: normal; 
+text-align: center;
+color: var(--big-text-font-color);
+}
+
+/*Lists*/
+ul {
+display: inline;
+list-style: none;
+}
+
+ul li {
+text-align: center;
+font-size:25pt;
+font-weight: bold;
+color: var(--big-text-font-color);
+}
+
+ul li::before {
+content: attr(data-icon);
+font-size: 1em;
+margin-right: 10px;
+font-family: "emoji";
+}
+
+/* Footer */
+footer {
+padding: 2em;
+text-align: center;
+background-color: var(--waves-color);
+background-image: linear-gradient(var(--waves-color), var(--waves-color2));
+background-size:cover;
+}
+
+footer p {text-align: center;}
+footer a {color: var(--big-text-font-color);}
+footer ul {margin-left: -50px;}
+
+footer li {
+display: inline;
+list-style-type: none;
+}
+
+
+/*Mobile friendly layout*/
+@media all and (min-width:768px) {
+header {
+padding-top: 1em;
+padding-bottom: 1em;
+height: 25%;
+}
+header h1 {
+font-size: 3em;
+margin-top:.50em;}
+
+.bigtext {
+font-size: 2em;
+}
+
+.sidepics {
+width: 11em;
+height: 11em;
+margin: 1em 1.8em;
+display: unset;
+}
+
+}
+
+
+@media all and (min-width:1024px) {
+header h1 {
+font-size: 3.8em;
+margin-top:.40em;
+text-shadow: 3px 3px 0px rgba(255,255,255,0.90), 6px 6px 0px var(--header-font-color);
+}
+
+.waves {
+min-height:100px;
+max-height:150px;
+}
+
+.bigtext {
+font-size: 2.5em;
+text-align:left;
+margin-left: -20px;
+}
+
+p {
+text-align: left;
+}
+
+ul li {
+text-align: left;
+}
+
+ul li::before {
+font-size: 1.25em;
+}
+
+
+footer li {
+margin: 5px;
+}
+
+}
